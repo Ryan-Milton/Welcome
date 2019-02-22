@@ -1,0 +1,13 @@
+.news {
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+
+  .source {
+    border: 1px solid black;
+    display: block;
+    padding: 2em;
+    text-align: center;
+    width: 15em;
+  }
+}
