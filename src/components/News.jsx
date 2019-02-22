@@ -8,7 +8,8 @@ class News extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sources: null
+      sources: null,
+      checked: [],
     };
   }
 
@@ -19,11 +20,22 @@ class News extends Component {
       this.setState({ sources: results.body.sources });
       console.log(results.body);
     });
-    console.log(this.state);
   }
 
   componentWillMount() {
     this.getSources();
+  }
+
+  handleChecked = async (event) => {
+    console.log(event.target.value);
+    let idx = this.state.checked.includes(event.target.value);
+    console.log('index', idx);
+    if(!this.state.checked.includes(event.target.value)) {
+      await this.setState({ checked: [...this.state.checked, event.target.value]});
+    } else {
+      console.log(this.state.checked.indexOf(event.target.value));
+    }
+    console.log(this.state.checked);
   }
 
   render() {
@@ -33,7 +45,7 @@ class News extends Component {
           <h1>News</h1>
             {this.state.sources.map((result, i) => (
               <label key={i} className={styles.source}>
-                <input type="checkbox" key={i} value={result.name} />
+                <input onClick={(event) => this.handleChecked(event)} type="checkbox" key={i} value={result.name} />
                 {result.name}
               </label>
             ))}
